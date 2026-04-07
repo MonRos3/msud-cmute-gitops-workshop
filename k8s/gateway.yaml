@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: paper-gateway
+spec:
+  gatewayClassName: eg
+  listeners:
+    - name: minecraft
+      protocol: TCP
+      port: 25565
+      allowedRoutes:
+        namespaces:
+          from: Same
+    # Replace <YOUR_NAME> with your name (lowercase, no spaces).
+    # This listener terminates TLS for ArgoCD; the HTTPRoute lives in the argocd namespace.
+    - name: argocd-https
+      protocol: HTTPS
+      port: 443
+      hostname: argocd.<YOUR_NAME>.mc.labs.cmute.cloud
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: argocd-tls
+      allowedRoutes:
+        namespaces:
+          from: All

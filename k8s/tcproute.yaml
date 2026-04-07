@@ -1,0 +1,11 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: paper-route
+spec:
+  parentRefs:
+    - name: paper-gateway
+  rules:
+    - backendRefs:
+        - name: paper
+          port: 25565
