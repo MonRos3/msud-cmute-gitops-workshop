@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paper
+  template:
+    metadata:
+      labels:
+        app: paper
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: paper
+          image: ghcr.io/<YOUR_GITHUB_USERNAME>/msud-cmute-gitops-workshop:latest
+          ports:
+            - containerPort: 25565
+            - containerPort: 9940
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2.5Gi"
+              cpu: "1000m"
+          volumeMounts:
+            - name: config
+              mountPath: /server/server.properties
+              subPath: server.properties
+            - name: world
+              mountPath: /server/world
+          startupProbe:
+            tcpSocket:
+              port: 25565
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 40
+          readinessProbe:
+            tcpSocket:
+              port: 25565
+            periodSeconds: 20
+      volumes:
+        - name: config
+          configMap:
+            name: paper-config
+        - name: world
+          persistentVolumeClaim:
+            claimName: paper-world
