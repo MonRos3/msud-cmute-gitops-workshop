@@ -4,6 +4,8 @@ metadata:
   name: paper
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: paper
