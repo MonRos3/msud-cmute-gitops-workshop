@@ -25,7 +25,7 @@ data:
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "mc_players_online_count",
+              "expr": "sum(mc_players_online_total)",
               "refId": "A"
             }
           ],
@@ -75,7 +75,7 @@ data:
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "mc_loaded_chunks_total",
+              "expr": "sum(mc_loaded_chunks_total)",
               "refId": "A"
             }
           ],
@@ -99,7 +99,7 @@ data:
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "mc_living_entities_total",
+              "expr": "sum(mc_entities_total)",
               "refId": "A"
             }
           ],
@@ -163,7 +163,7 @@ data:
           "fieldConfig": {
             "defaults": {
               "custom": { "fillOpacity": 10 },
-              "unit": "ms"
+              "unit": "ns"
             }
           }
         },
@@ -180,14 +180,19 @@ data:
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "jvm_memory_bytes_used{area=\"heap\"}",
-              "legendFormat": "Heap Used",
+              "expr": "mc_jvm_memory{type=\"allocated\"}",
+              "legendFormat": "Allocated",
               "refId": "A"
             },
             {
-              "expr": "jvm_memory_bytes_max{area=\"heap\"}",
-              "legendFormat": "Heap Max",
+              "expr": "mc_jvm_memory{type=\"max\"}",
+              "legendFormat": "Max",
               "refId": "B"
+            },
+            {
+              "expr": "mc_jvm_memory{type=\"free\"}",
+              "legendFormat": "Free",
+              "refId": "C"
             }
           ],
           "fieldConfig": {
@@ -204,12 +209,12 @@ data:
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "jvm_threads_current",
+              "expr": "mc_jvm_threads_current",
               "legendFormat": "Current",
               "refId": "A"
             },
             {
-              "expr": "jvm_threads_daemon",
+              "expr": "mc_jvm_threads_daemon",
               "legendFormat": "Daemon",
               "refId": "B"
             }
@@ -234,7 +239,7 @@ data:
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "mc_players_online_count",
+              "expr": "sum(mc_players_online_total)",
               "legendFormat": "Players",
               "refId": "A"
             }
@@ -247,37 +252,37 @@ data:
           }
         },
         {
-          "title": "Player Deaths (Total)",
+          "title": "World Size",
           "type": "stat",
           "gridPos": { "h": 8, "w": 6, "x": 12, "y": 24 },
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "sum(mc_player_deaths_total) or vector(0)",
+              "expr": "sum(mc_world_size)",
               "refId": "A"
             }
           ],
           "fieldConfig": {
             "defaults": {
-              "unit": "short",
+              "unit": "bytes",
               "thresholds": {
                 "steps": [
                   { "color": "green", "value": null },
-                  { "color": "yellow", "value": 10 },
-                  { "color": "red", "value": 50 }
+                  { "color": "yellow", "value": 104857600 },
+                  { "color": "red", "value": 524288000 }
                 ]
               }
             }
           }
         },
         {
-          "title": "Player Kills (Total)",
+          "title": "Total Players (All Time)",
           "type": "stat",
           "gridPos": { "h": 8, "w": 6, "x": 18, "y": 24 },
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "targets": [
             {
-              "expr": "sum(mc_player_kills_total) or vector(0)",
+              "expr": "mc_players_total",
               "refId": "A"
             }
           ],
@@ -302,3 +307,4 @@ data:
       "uid": "workshop-paper",
       "version": 1
     }
+    
