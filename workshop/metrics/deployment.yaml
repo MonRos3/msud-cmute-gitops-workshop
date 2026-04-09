@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: paper
+      annotations:
+        configmap-hash: "1"
     spec:
       securityContext:
         fsGroup: 1000

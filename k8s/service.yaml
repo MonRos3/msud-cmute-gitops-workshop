@@ -10,3 +10,6 @@ spec:
     - name: minecraft
       port: 25565
       targetPort: 25565
+    - name: metrics
+      port: 9940
+      targetPort: 9940
