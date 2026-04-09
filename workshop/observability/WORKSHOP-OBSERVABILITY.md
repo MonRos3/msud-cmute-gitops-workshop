@@ -51,7 +51,15 @@ cp workshop/observability/gateway-patch.yaml k8s/gateway.yaml
 
 Edit `k8s/gateway.yaml` and replace `<YOUR_NAME>` in both the `argocd-https` and `grafana-https` listener hostnames.
 
-Commit and push. ArgoCD will sync the updated gateway.
+Commit and push:
+
+```bash
+git add k8s/gateway.yaml
+git commit -m "feat: add grafana listener to gateway"
+git push
+```
+
+ArgoCD will sync the updated gateway.
 
 ## Create the DNS record
 

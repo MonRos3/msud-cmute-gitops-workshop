@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: grafana-tls
   dnsNames:
-    - grafana.test.mc.labs.cmute.cloud
+    - grafana.<YOUR_NAME>.mc.labs.cmute.cloud
   issuerRef:
     name: letsencrypt-do
     kind: ClusterIssuer

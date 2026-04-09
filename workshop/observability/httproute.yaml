@@ -9,7 +9,7 @@ spec:
       namespace: paper
       sectionName: grafana-https
   hostnames:
-    - grafana.test.mc.labs.cmute.cloud
+    - grafana.<YOUR_NAME>.mc.labs.cmute.cloud
   rules:
     - backendRefs:
         - name: prometheus-stack-grafana

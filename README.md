@@ -164,7 +164,7 @@ kubectl wait --for=condition=available deployment/argocd-server -n argocd --time
 
 ### Prepare ArgoCD for the shared Gateway
 
-The single `paper-gateway` (defined in `k8s/gateway.yaml`) has two listeners: a TCP listener for Minecraft and an HTTPS listener for the ArgoCD UI. Both share the same LoadBalancer IP.
+The single `paper-gateway` (defined in `k8s/gateway.yaml`) has three listeners: a TCP listener for Minecraft, an HTTPS listener for the ArgoCD UI, and an HTTPS listener for Grafana. They share the same LoadBalancer IP.
 
 1. Tell ArgoCD not to terminate TLS itself (the Gateway does it):
 
@@ -188,13 +188,19 @@ kubectl apply -f k8s/argocd-httproute.yaml
    - `persistentvolumeclaim.yaml`
    - `deployment.yaml` IMPORTANT: replace `<YOUR_GITHUB_USERNAME>` with your GitHub username
    - `service.yaml`
-   - `gateway.yaml` IMPORTANT: replace `<YOUR_NAME>` (the HTTPS listener hostname for ArgoCD)
+   - `gateway.yaml` IMPORTANT: replace `<YOUR_NAME>` in all HTTPS listener hostnames (ArgoCD and Grafana)
    - `tcproute.yaml`
    - `certificate.yaml` IMPORTANT: replace `<YOUR_NAME>` in both certs (matches your DNS records below)
 
 2. In `argocd/application.yaml`, look at the file and replace `<YOUR_GITHUB_USERNAME>` with your GitHub username.
 
-3. Commit and push.
+3. Commit and push:
+
+```bash
+git add -A
+git commit -m "chore: configure k8s manifests with my values"
+git push
+```
 
 4. Apply the ArgoCD application:
 

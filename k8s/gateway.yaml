@@ -14,7 +14,7 @@ spec:
     - name: argocd-https
       protocol: HTTPS
       port: 443
-      hostname: argocd.test.mc.labs.cmute.cloud
+      hostname: argocd.<YOUR_NAME>.mc.labs.cmute.cloud
       tls:
         mode: Terminate
         certificateRefs:
@@ -25,7 +25,7 @@ spec:
     - name: grafana-https
       protocol: HTTPS
       port: 443
-      hostname: grafana.test.mc.labs.cmute.cloud
+      hostname: grafana.<YOUR_NAME>.mc.labs.cmute.cloud
       tls:
         mode: Terminate
         certificateRefs:

@@ -14,21 +14,15 @@ spec:
       labels:
         app: paper
       annotations:
-        configmap-hash: "2"
+        configmap-hash: "1"
     spec:
       securityContext:
         fsGroup: 1000
       containers:
         - name: paper
-          image: ghcr.io/xata/msud-cmute-gitops-workshop:latest
-          env:
-            - name: MINECRAFT_PROMETHEUS_EXPORTER_HOST
-              value: "0.0.0.0"
-            - name: MINECRAFT_PROMETHEUS_EXPORTER_PORT
-              value: "9940"
+          image: ghcr.io/<YOUR_GITHUB_USERNAME>/msud-cmute-gitops-workshop:latest
           ports:
             - containerPort: 25565
-            - containerPort: 9940
           resources:
             requests:
               memory: "1Gi"
@@ -42,10 +36,6 @@ spec:
               subPath: server.properties
             - name: world
               mountPath: /server/world
-            - name: exporter-config
-              mountPath: /server/plugins/PrometheusExporter/config.yml
-              subPath: config.yml
-              readOnly: true
           startupProbe:
             tcpSocket:
               port: 25565
@@ -63,6 +53,3 @@ spec:
         - name: world
           persistentVolumeClaim:
             claimName: paper-world
-        - name: exporter-config
-          configMap:
-            name: prometheus-exporter-config
