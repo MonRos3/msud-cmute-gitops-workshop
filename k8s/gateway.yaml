@@ -25,7 +25,7 @@ spec:
     - name: grafana-https
       protocol: HTTPS
       port: 443
-      hostname: grafana.<YOUR_NAME>.mc.labs.cmute.cloud
+      hostname: grafana.mon.mc.labs.cmute.cloud
       tls:
         mode: Terminate
         certificateRefs:
