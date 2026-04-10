@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     # Replace <MonRos3> with your GitHub username.
-    repoURL: https://github.com/MonRos3/msud-cmute-gitops-workshop.git
+    repoURL: https://github.com/monros3/msud-cmute-gitops-workshop.git
     targetRevision: main
     path: k8s
   destination:
