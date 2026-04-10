@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    # Replace <YOUR_GITHUB_USERNAME> with your GitHub username.
-    repoURL: https://github.com/<YOUR_GITHUB_USERNAME>/msud-cmute-gitops-workshop.git
+    # Replace <MonRos3> with your GitHub username.
+    repoURL: https://github.com/MonRos3/msud-cmute-gitops-workshop.git
     targetRevision: main
     path: k8s
   destination:
